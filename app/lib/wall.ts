@@ -32,7 +32,7 @@ export class SupabaseWallConfigError extends Error {
 
 function getSupabaseWallConfig(): SupabaseWallConfig {
   const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
-  const apiKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.SUPABASE_ANON_KEY;
+  const apiKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY;
 
   if (!url || !apiKey) {
     throw new SupabaseWallConfigError();
@@ -41,13 +41,13 @@ function getSupabaseWallConfig(): SupabaseWallConfig {
   return {
     url,
     apiKey,
-    bucket: process.env.SUPABASE_WALL_BUCKET ?? DEFAULT_WALL_BUCKET,
+    bucket: process.env.SUPABASE_WALL_BUCKET || DEFAULT_WALL_BUCKET,
   };
 }
 
 export function getSupabaseBrowserConfig(): SupabaseBrowserConfig | null {
   const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
-  const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.SUPABASE_ANON_KEY;
+  const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY;
 
   if (!url || !publishableKey) {
     return null;
