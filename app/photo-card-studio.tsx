@@ -11,11 +11,11 @@ const EVENT_DATE = "24SEP26";
 const DEFAULT_EVENT_UNLOCK_AT = "2026-09-24T00:00:00-03:00";
 const EVENT_UNLOCK_AT = process.env.NEXT_PUBLIC_EVENT_UNLOCK_AT ?? DEFAULT_EVENT_UNLOCK_AT;
 const DEV_UNLOCK_COOKIE = "devin_dev_unlock";
-const DEVIN_CORAL = "#FA5050";
-const DEVIN_INK = "#0F131C";
-const INK = DEVIN_INK;
-const COMIC_WHITE = "#f8f8f2";
-const COMIC_GRAY = "#8f8f86";
+const DEVIN_BLUE = "#2200ff";
+const DEVIN_CARBON = "#141414";
+const INK = DEVIN_CARBON;
+const COMIC_WHITE = "#f7f6f5";
+const COMIC_GRAY = "#7d7d7d";
 const PIXEL_FONT: Record<string, string[]> = {
   " ": ["000", "000", "000", "000", "000", "000", "000"],
   "0": ["01110", "10001", "10011", "10101", "11001", "10001", "01110"],
@@ -222,7 +222,6 @@ function drawComicVideo(
     const green = pixels.data[index + 1];
     const blue = pixels.data[index + 2];
     const light = luminance(red, green, blue);
-    const warm = red * 0.85 + green * 0.7 - blue * 0.75;
     const right = px < lowWidth - 1 ? (py * lowWidth + px + 1) * 4 : index;
     const bottom = py < lowHeight - 1 ? ((py + 1) * lowWidth + px) * 4 : index;
     const edge =
@@ -231,8 +230,6 @@ function drawComicVideo(
 
     if (edge > 74 || light < 54) {
       paintPixel(pixels.data, index, INK);
-    } else if (warm > 165 && light > 86 && light < 226) {
-      paintPixel(pixels.data, index, DEVIN_CORAL);
     } else if (light > 186) {
       paintPixel(pixels.data, index, COMIC_WHITE);
     } else if (light > 104) {
@@ -257,11 +254,11 @@ function drawCardBackground(context: CanvasRenderingContext2D) {
 
   context.fillStyle = INK;
   context.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
-  context.fillStyle = DEVIN_CORAL;
+  context.fillStyle = DEVIN_BLUE;
   context.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
   context.fillStyle = INK;
   context.fillRect(24, 24, CARD_WIDTH - 48, CARD_HEIGHT - 48);
-  context.fillStyle = DEVIN_CORAL;
+  context.fillStyle = DEVIN_BLUE;
   context.fillRect(44, 44, CARD_WIDTH - 88, CARD_HEIGHT - 88);
   context.fillStyle = INK;
   context.fillRect(56, 56, CARD_WIDTH - 112, CARD_HEIGHT - 112);
@@ -280,7 +277,7 @@ function drawCardChrome(context: CanvasRenderingContext2D, photoArea: PhotoArea)
   const dateWidth = 250;
   const dateHeight = 70;
 
-  context.strokeStyle = DEVIN_CORAL;
+  context.strokeStyle = DEVIN_BLUE;
   context.lineWidth = 18;
   context.strokeRect(photoArea.x - 2, photoArea.y - 2, photoArea.width + 4, photoArea.height + 4);
   context.strokeStyle = INK;
@@ -294,19 +291,19 @@ function drawCardChrome(context: CanvasRenderingContext2D, photoArea: PhotoArea)
   context.fillStyle = gradient;
   context.fillRect(photoArea.x, overlayY - 90, photoArea.width, overlayHeight + 90);
 
-  context.fillStyle = DEVIN_CORAL;
+  context.fillStyle = DEVIN_BLUE;
   context.fillRect(photoArea.x + 34, overlayY + 24, photoArea.width - 68, 12);
 
-  context.fillStyle = DEVIN_CORAL;
+  context.fillStyle = DEVIN_BLUE;
   context.fillRect(CARD_WIDTH / 2 - dateWidth / 2, overlayY + 58, dateWidth, dateHeight);
-  context.strokeStyle = INK;
+  context.strokeStyle = COMIC_WHITE;
   context.lineWidth = 7;
   context.strokeRect(CARD_WIDTH / 2 - dateWidth / 2 + 6, overlayY + 64, dateWidth - 12, dateHeight - 12);
 
-  drawPixelText(context, EVENT_DATE, CARD_WIDTH / 2, overlayY + 93, dateWidth - 36, 7, INK);
-  drawPixelText(context, "DEVIN MEETUP BSAS", CARD_WIDTH / 2, overlayY + 185, photoArea.width - 92, 10, DEVIN_CORAL);
+  drawPixelText(context, EVENT_DATE, CARD_WIDTH / 2, overlayY + 93, dateWidth - 36, 7, COMIC_WHITE);
+  drawPixelText(context, "DEVIN MEETUP BSAS", CARD_WIDTH / 2, overlayY + 185, photoArea.width - 92, 10, COMIC_WHITE);
 
-  context.fillStyle = DEVIN_CORAL;
+  context.fillStyle = DEVIN_BLUE;
   context.fillRect(photoArea.x + 34, photoArea.y + photoArea.height - 38, 118, 14);
   context.fillRect(photoArea.x + photoArea.width - 152, photoArea.y + photoArea.height - 38, 118, 14);
 }
@@ -380,7 +377,7 @@ function captureSourceImage(video: HTMLVideoElement) {
     dx = (width - dw) / 2;
   }
 
-  context.fillStyle = "#0F131C";
+  context.fillStyle = "#141414";
   context.fillRect(0, 0, width, height);
   context.translate(width, 0);
   context.scale(-1, 1);
@@ -758,13 +755,13 @@ export default function PhotoCardStudio() {
 
   if (gateLocked) {
     return (
-      <main className="flex min-h-dvh flex-col bg-[#0F131C] text-white">
+      <main className="flex min-h-dvh flex-col bg-[#141414] text-white">
         <section className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-8 px-5 py-10 text-center">
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#FA5050]/50 bg-[#FA5050]/10 px-4 py-2 font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#FA5050]">
+          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#2200ff] bg-[#2200ff]/15 px-4 py-2 font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#f7f6f5]">
             Devin Meetup Buenos Aires · {EVENT_DATE}
           </div>
           <div className="space-y-4">
-            <h1 className="text-5xl font-black leading-[0.92] tracking-[-0.06em] text-[#FA5050] sm:text-7xl">
+            <h1 className="text-5xl font-black leading-[0.92] tracking-[-0.06em] text-[#f7f6f5] sm:text-7xl">
               Disponible el 24 de septiembre
             </h1>
             <p className="mx-auto max-w-xl text-base leading-7 text-zinc-300 sm:text-lg">
@@ -780,7 +777,7 @@ export default function PhotoCardStudio() {
               ["Seg", countdown.seconds],
             ].map(([label, value]) => (
               <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-4">
-                <div className="text-3xl font-black text-[#FA5050] sm:text-5xl">{value}</div>
+                <div className="text-3xl font-black text-[#f7f6f5] sm:text-5xl">{value}</div>
                 <div className="mt-2 text-[10px] font-black uppercase tracking-[0.18em] text-zinc-500">{label}</div>
               </div>
             ))}
@@ -792,7 +789,7 @@ export default function PhotoCardStudio() {
             href="https://erasmoh.dev"
             target="_blank"
             rel="noreferrer"
-            className="font-black text-[#FA5050] underline decoration-[#FA5050]/40 underline-offset-4 transition hover:text-red-300"
+            className="font-black text-[#f7f6f5] underline decoration-[#2200ff] underline-offset-4 transition hover:text-[#e7e7e7]"
           >
             @ErasmoHernandez
           </a>
@@ -801,7 +798,7 @@ export default function PhotoCardStudio() {
             href="https://erasmoh.dev"
             target="_blank"
             rel="noreferrer"
-            className="font-black text-white underline decoration-white/30 underline-offset-4 transition hover:text-[#FA5050]"
+            className="font-black text-white underline decoration-white/30 underline-offset-4 transition hover:text-[#7d7d7d]"
           >
             erasmoh.dev
           </a>
@@ -811,14 +808,14 @@ export default function PhotoCardStudio() {
   }
 
   return (
-    <main className="flex min-h-dvh flex-col bg-[#0F131C] text-white">
+    <main className="flex min-h-dvh flex-col bg-[#141414] text-white">
       <section className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-5 py-6 sm:px-8 lg:grid lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:py-10">
         <div className="flex flex-col gap-5">
-          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#FA5050]/50 bg-[#FA5050]/10 px-4 py-2 text-sm font-bold uppercase tracking-[0.24em] text-[#FA5050]">
+          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#2200ff] bg-[#2200ff]/15 px-4 py-2 text-sm font-bold uppercase tracking-[0.24em] text-[#f7f6f5]">
             Devin Meetup Buenos Aires
           </div>
           <div className="space-y-4">
-            <h1 className="max-w-xl text-5xl font-black leading-[0.92] tracking-[-0.06em] text-[#FA5050] sm:text-7xl">
+            <h1 className="max-w-xl text-5xl font-black leading-[0.92] tracking-[-0.06em] text-[#f7f6f5] sm:text-7xl">
               Tu cara en una card 16-bit
             </h1>
             <p className="max-w-lg text-base leading-7 text-zinc-300 sm:text-lg">
@@ -832,7 +829,7 @@ export default function PhotoCardStudio() {
                 ? "border-red-400/40 bg-red-500/10 text-red-100"
                 : status.tone === "success"
                   ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-100"
-                  : "border-[#FA5050]/30 bg-[#FA5050]/10 text-red-100"
+                  : "border-[#2200ff]/60 bg-[#2200ff]/15 text-[#e7e7e7]"
             }`}
           >
             {status.text}
@@ -843,7 +840,7 @@ export default function PhotoCardStudio() {
               <button
                 type="button"
                 onClick={startCamera}
-                className="rounded-xl bg-[#FA5050] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-[#0F131C] transition hover:scale-[1.01] hover:bg-red-400"
+                className="rounded-xl bg-[#2200ff] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-white transition hover:scale-[1.01] hover:bg-[#1a00cc]"
               >
                 {cameraReady ? "Reactivar cámara" : "Activar cámara"}
               </button>
@@ -851,7 +848,7 @@ export default function PhotoCardStudio() {
                 type="button"
                 onClick={captureCard}
                 disabled={!cameraReady || !canGenerate}
-                className="rounded-xl border-2 border-[#FA5050] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-[#FA5050] transition hover:scale-[1.01] hover:bg-[#FA5050] hover:text-[#0F131C] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 disabled:hover:bg-transparent disabled:hover:text-[#FA5050]"
+                className="rounded-xl border-2 border-[#2200ff] px-4 py-3 text-sm font-black uppercase tracking-[0.14em] text-[#f7f6f5] transition hover:scale-[1.01] hover:bg-[#2200ff] hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 disabled:hover:bg-transparent disabled:hover:text-[#f7f6f5]"
               >
                 {isGenerating
                   ? "Generando..."
@@ -867,7 +864,7 @@ export default function PhotoCardStudio() {
                 type="button"
                 onClick={downloadCard}
                 disabled={!capturedImage}
-                className="rounded-lg border border-[#FA5050] px-3 py-2.5 text-xs font-black uppercase tracking-[0.12em] text-[#FA5050] transition hover:bg-[#FA5050] hover:text-[#0F131C] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-[#FA5050]"
+                className="rounded-lg border border-[#2200ff] px-3 py-2.5 text-xs font-black uppercase tracking-[0.12em] text-[#f7f6f5] transition hover:bg-[#2200ff] hover:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-[#f7f6f5]"
               >
                 Descargar
               </button>
@@ -890,10 +887,10 @@ export default function PhotoCardStudio() {
 
         <div className="mx-auto w-full max-w-[430px] lg:max-w-[460px]">
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-3 shadow-2xl">
-            <div className="relative aspect-[2/3] overflow-hidden rounded-[1.55rem] border-[10px] border-[#FA5050] bg-[#0F131C] font-mono">
+            <div className="relative aspect-[2/3] overflow-hidden rounded-[1.55rem] border-[10px] border-[#2200ff] bg-[#141414] font-mono">
               <video
                 ref={videoRef}
-                className="absolute inset-0 h-full w-full scale-x-[-1] bg-[#0F131C] object-contain"
+                className="absolute inset-0 h-full w-full scale-x-[-1] bg-[#141414] object-contain"
                 muted
                 playsInline
                 autoPlay
@@ -908,24 +905,24 @@ export default function PhotoCardStudio() {
                   className="object-cover"
                 />
               ) : (
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0F131C] via-[#0F131C]/80 to-transparent px-4 pb-5 pt-20 text-center">
-                  <span className="mb-2 inline-flex bg-[#FA5050] px-3 py-1 text-xs font-black tracking-[0.18em] text-[#0F131C]">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#141414] via-[#141414]/80 to-transparent px-4 pb-5 pt-20 text-center">
+                  <span className="mb-2 inline-flex bg-[#2200ff] px-3 py-1 text-xs font-black tracking-[0.18em] text-white">
                     {EVENT_DATE}
                   </span>
-                  <p className="text-xl font-black tracking-[0.02em] text-[#FA5050]">
+                  <p className="text-xl font-black tracking-[0.02em] text-[#f7f6f5]">
                     DEVIN MEETUP BSAS
                   </p>
                 </div>
               )}
               {isGenerating && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#0F131C]/72 px-8 text-center backdrop-blur-[2px]">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#141414]/72 px-8 text-center backdrop-blur-[2px]">
                   <div className="flex items-center gap-3">
                     {Array.from({ length: 4 }).map((_, index) => (
                       <span
                         key={index}
                         className={`h-3.5 w-3.5 rounded-full transition-colors duration-200 ${
                           loaderStep === index
-                            ? "bg-[#FA5050]"
+                            ? "bg-[#2200ff]"
                             : (loaderStep + index) % 2 === 0
                               ? "bg-white"
                               : "bg-zinc-600"
@@ -933,7 +930,7 @@ export default function PhotoCardStudio() {
                       />
                     ))}
                   </div>
-                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#FA5050]">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#f7f6f5]">
                     Generando retrato 16-bit
                   </p>
                 </div>
@@ -952,7 +949,7 @@ export default function PhotoCardStudio() {
           href="https://erasmoh.dev"
           target="_blank"
           rel="noreferrer"
-          className="font-black text-[#FA5050] underline decoration-[#FA5050]/40 underline-offset-4 transition hover:text-red-300"
+          className="font-black text-[#f7f6f5] underline decoration-[#2200ff] underline-offset-4 transition hover:text-[#e7e7e7]"
         >
           @ErasmoHernandez
         </a>
@@ -961,24 +958,24 @@ export default function PhotoCardStudio() {
           href="https://erasmoh.dev"
           target="_blank"
           rel="noreferrer"
-          className="font-black text-white underline decoration-white/30 underline-offset-4 transition hover:text-[#FA5050]"
+          className="font-black text-white underline decoration-white/30 underline-offset-4 transition hover:text-[#7d7d7d]"
         >
           erasmoh.dev
         </a>
       </footer>
       {isShareDialogOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0F131C]/75 px-5 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#141414]/75 px-5 backdrop-blur-sm">
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="share-wall-title"
-            className="w-full max-w-md rounded-[2rem] border border-[#FA5050]/50 bg-[#111] p-6 text-white shadow-2xl"
+            className="w-full max-w-md rounded-[2rem] border border-[#2200ff] bg-[#111] p-6 text-white shadow-2xl"
           >
             <div className="space-y-4">
-              <div className="inline-flex rounded-full bg-[#FA5050] px-3 py-1 font-mono text-[10px] font-black uppercase tracking-[0.18em] text-[#0F131C]">
+              <div className="inline-flex rounded-full bg-[#2200ff] px-3 py-1 font-mono text-[10px] font-black uppercase tracking-[0.18em] text-white">
                 Confirmación
               </div>
-              <h2 id="share-wall-title" className="text-2xl font-black leading-tight text-[#FA5050]">
+              <h2 id="share-wall-title" className="text-2xl font-black leading-tight text-[#f7f6f5]">
                 Enviar al muro
               </h2>
               <p className="text-sm leading-6 text-zinc-200">
@@ -999,7 +996,7 @@ export default function PhotoCardStudio() {
                 type="button"
                 onClick={shareToWall}
                 disabled={isSharing}
-                className="rounded-xl bg-[#FA5050] px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#0F131C] transition hover:bg-red-400 disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-[#2200ff] px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-white transition hover:bg-[#1a00cc] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSharing ? "Enviando..." : "Sí, enviar"}
               </button>

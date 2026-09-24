@@ -17,7 +17,7 @@ Transform the provided selfie into a premium 16-bit pixel portrait for a vertica
 Preserve the person's likeness, face shape, hair, expression, pose, skin tone relationships, and main identifying features.
 The output must look like intentionally hand-crafted 16-bit pixel art, not a filtered photograph.
 Use chunky pixel shapes, crisp stair-stepped edges, simplified facial features, graphic clusters of light and shadow, and controlled dithering.
-Use a constrained Devin-inspired palette: Devin ink #0F131C, white, warm gray, dark gray, and Devin coral #FA5050.
+Use a constrained Devin palette: carbon #141414, paper white #f7f6f5, steel gray #7d7d7d, dark gray #1f1f1f, and a few accents of electric blue #2200ff.
 Make it a centered bust portrait with a clean simple background, strong silhouette, enough headroom, visible shoulders, and empty lower space for an event overlay.
 Do not add text, logos, dates, captions, labels, borders, or extra people.
 Avoid photorealism, smooth gradients, painterly brush strokes, anime style, 3D render, and realistic camera blur.

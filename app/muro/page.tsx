@@ -47,12 +47,12 @@ export default async function MuroPage() {
   const state = await getWallPageState();
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-[#0F131C] text-white">
+    <main className="relative min-h-dvh overflow-hidden bg-[#141414] text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(250,80,80,0.18),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_30%)]" />
 
-      <header className="pointer-events-none absolute inset-x-0 top-0 z-50 flex items-start justify-between gap-6 bg-gradient-to-b from-[#0F131C]/92 via-[#0F131C]/55 to-transparent p-5 pb-20 sm:p-8 sm:pb-24">
+      <header className="pointer-events-none absolute inset-x-0 top-0 z-50 flex items-start justify-between gap-6 bg-gradient-to-b from-[#141414]/92 via-[#141414]/55 to-transparent p-5 pb-20 sm:p-8 sm:pb-24">
         <h1
-          className="max-w-[calc(100%-8rem)] text-4xl font-black uppercase leading-[0.98] tracking-[0.08em] text-[#FA5050] [font-variant-ligatures:none] [text-shadow:4px_4px_0_#0F131C] sm:max-w-[calc(100%-11rem)] sm:text-6xl lg:text-7xl"
+          className="max-w-[calc(100%-8rem)] text-4xl font-black uppercase leading-[0.98] tracking-[0.08em] text-[#f7f6f5] [font-variant-ligatures:none] [text-shadow:4px_4px_0_#141414] sm:max-w-[calc(100%-11rem)] sm:text-6xl lg:text-7xl"
           style={{
             fontFamily:
               "'Courier New', Courier, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace",
@@ -77,13 +77,13 @@ export default async function MuroPage() {
         initialImages={state.images}
         supabaseConfig={state.supabaseConfig}
       />
-      <footer className="pointer-events-auto absolute inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#0F131C]/75 px-5 py-4 text-center font-mono text-xs leading-6 text-zinc-400 backdrop-blur-sm sm:text-sm">
+      <footer className="pointer-events-auto absolute inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#141414]/75 px-5 py-4 text-center font-mono text-xs leading-6 text-zinc-400 backdrop-blur-sm sm:text-sm">
         Creado por{" "}
         <a
           href="https://erasmoh.dev"
           target="_blank"
           rel="noreferrer"
-          className="font-black text-[#FA5050] underline decoration-[#FA5050]/40 underline-offset-4 transition hover:text-red-300"
+          className="font-black text-[#f7f6f5] underline decoration-[#2200ff] underline-offset-4 transition hover:text-[#e7e7e7]"
         >
           @ErasmoHernandez
         </a>
@@ -92,7 +92,7 @@ export default async function MuroPage() {
           href="https://erasmoh.dev"
           target="_blank"
           rel="noreferrer"
-          className="font-black text-white underline decoration-white/30 underline-offset-4 transition hover:text-[#FA5050]"
+          className="font-black text-white underline decoration-white/30 underline-offset-4 transition hover:text-[#7d7d7d]"
         >
           erasmoh.dev
         </a>
